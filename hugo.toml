@@ -1,0 +1,24 @@
+baseURL = 'https://kyle-mcgovern.github.io/'
+languageCode = 'en-us'
+theme = 'hugo-bearblog'
+
+title = "°º¤ø,¸¸,ø¤ Exploring Biological Data ¸,ø¤º°`°º¤ø,¸"
+author = "Kyle McGovern"
+copyright = "Open Source"
+
+disableKinds = ["taxonomy"]
+ignoreErrors = ["error-disable-taxonomy"]
+[permalinks]
+  blog = "/:slug/"
+  tags = "/blog/:slug"
+
+[markup]
+  [markup.highlight]
+    style = 'friendly'
+    lineNos = true
+    lineNumbersInTable = false
+    codeFences = true
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Microbiome on My New Hugo Site</title>
+    <link>http://localhost:41789/tags/microbiome/</link>
+    <description>Recent content in Microbiome on My New Hugo Site</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 12 Dec 2025 13:55:22 -0800</lastBuildDate>
+    <atom:link href="http://localhost:41789/tags/microbiome/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Exploring A Simple Attention Mechanism for Multi-omic Microbiomics</title>
+      <link>http://localhost:41789/blog/p1_attn/</link>
+      <pubDate>Fri, 12 Dec 2025 13:55:22 -0800</pubDate>
+      <guid>http://localhost:41789/blog/p1_attn/</guid>
+      <description>&lt;!-- raw HTML omitted --&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;The following serves as an introduction to attention models and an exploration of the utility of these models for multi-omics through an example analysis of a Type II Diabetes (T2D) vs. Control experiment. I consider a &lt;em&gt;main&lt;/em&gt; &lt;strong&gt;metagenomic&lt;/strong&gt; dataset and a &lt;em&gt;subordinate&lt;/em&gt; &lt;strong&gt;blood serum&lt;/strong&gt; dataset using a modified version of &lt;a href=&#34;https://academic.oup.com/bioinformatics/article/38/8/2287/6528310&#34;&gt;this model&lt;/a&gt;. The model used here is pictured below.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

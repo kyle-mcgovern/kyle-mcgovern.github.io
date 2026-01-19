@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>http://localhost:40709/</loc>
+    <lastmod>2025-12-12T13:55:22-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:40709/blog/</loc>
+    <lastmod>2025-12-12T13:55:22-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:40709/hire_me/</loc>
+  </url><url>
+    <loc>http://localhost:40709/exploring-a-simple-attention-mechanism-for-multi-omic-microbiomics/</loc>
+    <lastmod>2025-12-12T13:55:22-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:40709/blog/machine-learning/</loc>
+    <lastmod>2025-12-12T13:55:22-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:40709/blog/microbiome/</loc>
+    <lastmod>2025-12-12T13:55:22-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:40709/blog/multiomics/</loc>
+    <lastmod>2025-12-12T13:55:22-08:00</lastmod>
+  </url>
+</urlset>

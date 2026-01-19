@@ -1,0 +1,5 @@
+<div class="row">
+  {{ range where (where .Site.RegularPages "Section" "blog") "Params.featured" true }}
+    {{ partial "featured.html" . }}
+  {{ end }}
+</div>

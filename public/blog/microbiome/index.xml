@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Microbiome on °º¤ø,¸¸,ø¤ Exploring Biological Data ¸,ø¤º°`°º¤ø,¸</title>
+    <link>http://localhost:40709/blog/microbiome/</link>
+    <description>Recent content in Microbiome on °º¤ø,¸¸,ø¤ Exploring Biological Data ¸,ø¤º°`°º¤ø,¸</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <copyright>Open Source</copyright>
+    <lastBuildDate>Fri, 12 Dec 2025 13:55:22 -0800</lastBuildDate>
+    <atom:link href="http://localhost:40709/blog/microbiome/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Exploring A Simple Attention Mechanism for Multi-omic Microbiomics</title>
+      <link>http://localhost:40709/exploring-a-simple-attention-mechanism-for-multi-omic-microbiomics/</link>
+      <pubDate>Fri, 12 Dec 2025 13:55:22 -0800</pubDate>
+      <guid>http://localhost:40709/exploring-a-simple-attention-mechanism-for-multi-omic-microbiomics/</guid>
+      <description>&lt;script&gt;&#xA;MathJax = {&#xA;  tex: { inlineMath: [[&#39;$&#39;, &#39;$&#39;], [&#39;\\(&#39;, &#39;\\)&#39;]] }&#xA;};&#xA;&lt;/script&gt;&#xA;&lt;script src=&#34;https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js&#34;&gt;&lt;/script&gt;&#xA;&lt;script src=&#34;https://d3js.org/d3.v7.min.js&#34;&gt;&lt;/script&gt;&#xA;&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;&#xA;&lt;hr style=&#34;border: none; border-top: 2px solid black; margin: 0rem 0;&#34;&gt;&#xA;&lt;div style=&#34;margin-top: 2rem; margin-bottom: 2rem;&#34;&gt;&lt;/div&gt;&#xA;&lt;p&gt;The following serves as an introduction to attention models and an exploration of the utility of these models for multi-omics through an example analysis of a Type II Diabetes (T2D) vs. Control experiment. I consider a &lt;em&gt;main&lt;/em&gt; &lt;strong&gt;metagenomic&lt;/strong&gt; dataset and a &lt;em&gt;subordinate&lt;/em&gt; &lt;strong&gt;blood serum&lt;/strong&gt; dataset using a modified version of &lt;a href=&#34;https://academic.oup.com/bioinformatics/article/38/8/2287/6528310&#34;&gt;this model&lt;/a&gt;. The model used here is pictured below.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
