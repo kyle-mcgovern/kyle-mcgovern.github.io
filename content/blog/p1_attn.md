@@ -8,6 +8,7 @@ tags = [
     "Microbiome"
 ]
 featured = true
+aliases = ["/attn-multiomic-micro/"]
 +++
 
 <script>
