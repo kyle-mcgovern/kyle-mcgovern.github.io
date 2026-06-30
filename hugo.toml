@@ -14,13 +14,21 @@ ignoreErrors = ["error-disable-taxonomy"]
 
 [markup]
   [markup.highlight]
-    style = 'friendly'
+    style = "friendly"
     lineNos = true
     lineNumbersInTable = false
     codeFences = true
+
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+
+    [markup.goldmark.extensions.passthrough]
+      enable = true
+
+      [markup.goldmark.extensions.passthrough.delimiters]
+        block = [['$$', '$$'], ['\[', '\]']]
+        inline = [['\(', '\)']]
 
 [caches]
   [caches.images]
