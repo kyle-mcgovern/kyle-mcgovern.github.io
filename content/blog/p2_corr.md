@@ -10,6 +10,8 @@ tags = [
 ]
 featured = true
 aliases = ["/sparcc-toward-alternative/"]
+summary = "Identifying Issues with SparCC and an Alternative Approach"
+image = "images/sparcc.png"
 +++
 
 <script>
