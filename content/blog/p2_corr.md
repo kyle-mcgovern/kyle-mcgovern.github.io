@@ -38,7 +38,7 @@ See Code section at end or [GitHub](https://github.com/kyle-mcgovern/exploring_s
 ## Absolute Abundances, Relative Abundances, Scale
 <hr style="border: none; border-top: 2px solid black; margin: 0rem 0;">
 <div style="margin-top: 2rem; margin-bottom: 2rem;"></div>
-For $D$ taxa (or genes) and $N$ samples/individuals we define:
+To talk about SparCC, we need to define the basics. For $D$ taxa (or genes) and $N$ samples/individuals we define:
 <ul>
     <li>$W$: A $D \times N$ matrix of <span style="font-weight: bold;">absolute abundances</span></li>
     <li>$W^\text{rel}$: A $D \times N$ matrix of <span style="font-weight: bold;">relative abundances</span></li>
@@ -131,13 +131,11 @@ And the corresponding relative abundances matrix $W^\text{rel}$:
 </div>
 
 
-## The Problem Estimating Correlations from Sequence Counts
+## Correlations in Relative Abundance vs. Correlations in Absolute Abundance
 <hr style="border: none; border-top: 2px solid black; margin: 0rem 0;">
 <div style="margin-top: 2rem; margin-bottom: 2rem;"></div>
 
-SparCC [1] aims to estimate correlations in the <span style="font-weight: bold;">absolute abundances</span> of various taxa. Its goal is to answer questions like: in the Crohn's disease gut, is the abundance of butyrate-producer *Faecalibacterium* negatively correlated with inflammatory-response-related *Ruminococcus*?
-
-To define this correlation, let $\sigma^2_i=\text{var}(\log W_{i\cdot})$ and $\sigma_{ij} = \text{cov}(\log W_{i\cdot}, \log W_{j\cdot})$, then the log correlation is:
+SparCC [1] aims to estimate correlations in the <span style="font-weight: bold;">absolute abundances</span> of various taxa. Its goal is to answer questions like: in the Crohn's disease gut, is the abundance of butyrate-producer *Faecalibacterium* negatively correlated with inflammatory-response-related *Ruminococcus*? Mathematically, if $\sigma^2_i=\text{var}(\log W_{i\cdot})$ and $\sigma_{ij} = \text{cov}(\log W_{i\cdot}, \log W_{j\cdot})$, the log correlation in absolute abundance can be defined as:
 \[
 \begin{aligned}
 \rho_{ij} &\equiv \text{corr}(\log W_{i\cdot}, \log W_{j\cdot}) \\
@@ -145,7 +143,7 @@ To define this correlation, let $\sigma^2_i=\text{var}(\log W_{i\cdot})$ and $\s
 \end{aligned}
 \]
 
-As an example, I will use a Vandeputte study [2] measuring 40 taxa in 66 healthy individuals because it has flow cytometry measurements of microbial load (i.e., scale). Combining the microbial load measurements (i.e., scale measurements) with sequence count data (i.e., relative abundance measurements), we can estimate the correlations in the absolute abundances:
+As an example, I will use a study by Vandeputte et al. [2] measuring 40 taxa in 66 healthy individuals because it has flow cytometry measurements of microbial load (i.e., scale). Combining the microbial load measurements (i.e., scale measurements) with sequence count data (i.e., relative abundance measurements), we can estimate the correlations in the absolute abundances:
 
 <script src="/p2v1.js"></script>
 <div id="viz1"> </div>
@@ -193,19 +191,18 @@ $$
 $$
 
 The average variance in the log-ratio for any taxon $i$ can then be written as (note, $t_{ii}=0$):
-
 \[
 \begin{aligned}
 t_i &\equiv \sum_{j=1}^D t_{ij} = (D-1) \sigma_i^2 + \sum_{j \neq i} \sigma_j^2 + 2 \sum_{j \neq i} \rho_{ij} \sigma_i \sigma_j
 \end{aligned}
 \]
 
-The <span style="font-weight: bold;">sparsity assumpition</span> refers to the assumption most correlations are near-zero/cancel out:
+SparCC takes advantage of the above formula, but we cannot estimate $\sigma^2$ (and therefore $\rho_{ij}$) with the formula as is. This is because there are too many parameters to sovle for $\sigma^2$ directly. However, we *can* solve for $\sigma^2$ (and therefore $\rho_{ij}$) if we use an additional assumption. This assumption, called the <span style="font-weight: bold;">sparsity assumpition</span>, means assuming most correlations are near-zero/cancel out:
 \[
 (D-1) \sigma_i^2 + \sum_{j \neq i} \sigma_j^2 \gg 2 \sum_{j \neq i} \rho_{ij} \sigma_i \sigma_j
 \]
 
-We can first derive a solution for $\sum_{i=j}^D \sigma^2$, which then can be used to derive a solution for $\sigma_i^2$. Using the <span style="font-weight: bold;">sparsity assumpition</span>, we can write:
+This assumption enables use to first derive a solution for $\sum_{i=j}^D \sigma^2$, which then can be used to derive a solution for $\sigma_i^2$. Using the <span style="font-weight: bold;">sparsity assumpition</span>, we can write:
 \[
 \begin{aligned}
 t_{i} &\simeq (D-1) \sigma_i^2 + \sum_{j \neq i} \sigma_j^2 \\
@@ -228,14 +225,16 @@ $$
 \rho_{ij} = \frac{\sigma_i^2 + \sigma_j^2 - t_{ij}}{2\sigma_i\sigma_j}
 $$
 
+In summary, SparCC's approach relies on the sparsity assumption. The sparsity assumption results in correlation estimates that are purely a function of log-ratios. The advantage of log-ratios is that they are invariant to scale, and thus can be learned from sequence count data, even though these data only measure relative abundances.
+
 ### SparCC Algorithm
 
-One final issue is zeros and counting uncertainty in sequence count data. To solve this, we can estimate the correlation multiple times after estimating the relative abundances $W^\text{rel}$. For each sample $n$, we estimate the relative abundances using a Multinomial-Dirichlet distribution, which for sequence counts $Y$ is:
+One final issue is zeros and counting uncertainty in sequence count data. To solve this, SparCC estimates the correlation multiple times after estimating the relative abundances $W^\text{rel}$. For each sample $n$, we estimate the relative abundances using a Multinomial-Dirichlet distribution, which for sequence counts $Y$ is:
 \[
-W^\text{rel}_{\cdot n} = \text{Dirichlet}\left(Y_{\cdot n} + 0.5\right)
+W^\text{rel}_{\cdot n} \sim \text{Dirichlet}\left(Y_{\cdot n} + 0.5\right)
 \]
 
-Loop over the following steps $S$ times to get a distribution of correlation estimates (see Code section for full code or [GitHub](https://github.com/kyle-mcgovern/exploring_sparcc_correlation)):
+The SparCC algorithm consists of $S$ loops over the following steps, which gives a distribution of correlation estimates (see Code section for full code or [GitHub](https://github.com/kyle-mcgovern/exploring_sparcc_correlation)):
 <ol>
     <li>Sample estimate of relative abundances $W^\text{rel}$ as:</li>    
 \[
@@ -278,7 +277,7 @@ Notice that for *Oscillibacter*, where the SparCC assumption is violated, SparCC
 
 ### Math \& Justifying Theory
 
-Here I will develop an approach based on Bayesian partially identified models (see this paper for more info [3]). In summary, these models allow us to assign a probability distribution representing uncertainty in the unmeasured scale. By sampling from these distributions, our model can be more robust as it does not rely on a more strict assumption about scale, like SparCC's sparsity assumption. (Note, SparCC's sparsity assumption implies some assumptions about the $W^\text{tot}$ to allow estimation of $\sigma_i^2$, but I do not derive that assumption here).
+Here I will develop an approach based on Bayesian partially identified models (see this paper for more info [3]). In summary, these models allow us to assign a probability distribution representing uncertainty in the unmeasured scale. By sampling from these distributions, our model can be more robust as it does not rely on a more strict assumption about scale, like SparCC's sparsity assumption. (Note, SparCC's sparsity assumption implies some assumptions about the scale $W^\text{tot}$ to allow estimation of $\sigma_i^2$, but I do not derive that assumption here).
 
 We can start by decomposing the covariance in absolute abundances into its relative abundances and scale components. To do this, I'll define:
 <ul>
@@ -317,9 +316,11 @@ These can then be plugged in to estimate $\rho_{ij}$. Note the following two thi
     <li>If $\sigma^\text{rel}_{i} \sigma^\text{rel}_j \rho^{\text{rel},\text{rel}}_{ij}<0$, then $\rho_{ij}>0$ only if ${\sigma^\text{tot}}^2$, $\rho^{\text{rel},\text{tot}}_i$, and/or $\rho^{\text{rel},\text{tot}}_j$ are sufficiently large and positive</li>
 </ul>
 
+In summary, BpimC allows us to define uncertainty in our assumptions about the scale, avoiding the strict assumption made by SparCC (i.e., the sparsity assumption required a term be exactly $=0$). This uncertainty should account for potential bias, and (hopefully) avoid the issues we saw with SparCC.
+
 ### BpimC Algorithm
 
-Loop over the following steps $S$ times to get a distribution of correlation estimates (see Code section for full code or [GitHub](https://github.com/kyle-mcgovern/exploring_sparcc_correlation)):
+The BpimC algorithm loops over the following steps $S$ times to get a distribution of correlation estimates (see Code section for full code or [GitHub](https://github.com/kyle-mcgovern/exploring_sparcc_correlation)):
 <ol>
     <li>Sample estimate of relative abundances $W^\text{rel}$ as:</li>    
 \[
